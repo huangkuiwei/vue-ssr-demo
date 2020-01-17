@@ -9,6 +9,7 @@ const serverBundle = require('./dist/vue-ssr-server-bundle.json')
 const clientManifest = require('./dist/vue-ssr-client-manifest.json')
 
 const VueRenderer = require('vue-server-renderer').createBundleRenderer(serverBundle, {
+  runInNewContext: false, // 推荐
   template,
   clientManifest
 })

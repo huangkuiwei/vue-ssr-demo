@@ -3,6 +3,7 @@ import router from './router'
 import store from './store'
 import App from './App'
 
+// 创建 createApp 工厂函数
 const createApp = context => {
   const app = new Vue({
     router,

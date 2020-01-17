@@ -58,5 +58,6 @@ module.exports = {
       // 如果你使用 CommonsChunkPlugin，请确保仅在客户端配置 (client config) 中使用，因为服务器包需要单独的入口 chunk。
       config.optimization.splitChunks(undefined)
     }
+    config.resolve.alias.set('vue$', 'vue/dist/vue.esm.js')
   }
 }
