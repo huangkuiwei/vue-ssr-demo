@@ -27,6 +27,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "express": "^4.17.1",
+    "lodash.merge": "^4.6.2",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "vue-server-renderer": "^2.6.11",

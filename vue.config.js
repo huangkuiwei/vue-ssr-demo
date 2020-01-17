@@ -2,6 +2,8 @@ const path = require('path')
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 const WebpackNodeExternals = require('webpack-node-externals')
+// 合并对象，类似 webpack-merge
+const LodashMerge = require('lodash.merge')
 
 module.exports = {
   configureWebpack: () => {
@@ -55,9 +57,17 @@ module.exports = {
   },
   chainWebpack: config => {
     if (process.env.TARGET === 'node') {
-      // 如果你使用 CommonsChunkPlugin，请确保仅在客户端配置 (client config) 中使用，因为服务器包需要单独的入口 chunk。
+      // 如果你使用 CommonsChunkPlugin 或者 optimization 选项，请确保仅在客户端配置 (client config) 中使用，因为服务器包需要单独的入口 chunk。
       config.optimization.splitChunks(undefined)
     }
-    config.resolve.alias.set('vue$', 'vue/dist/vue.esm.js')
+    // 这一步必须要加，如果没有加的话，服务端一直会报 e._sseNode is not a function
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .tap(option => {
+        return LodashMerge(option, {
+          optimizeSSR: false
+        })
+      })
   }
 }
