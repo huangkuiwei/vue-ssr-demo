@@ -1,4 +1,4 @@
-# test
+# vue-ssr-demo
 
 ## Project setup
 ```
