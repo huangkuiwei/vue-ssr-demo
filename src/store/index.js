@@ -8,23 +8,33 @@ Vue.use(Vuex)
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      musicList: []
+      musicList: [],
+      videoHomeTab: []
     },
     mutations: {
       // 设置音乐排行版
       setMusicList (state, payload) {
         state.musicList = payload
+      },
+      setVideoHomeTab (state, payload) {
+        state.videoHomeTab = payload
       }
     },
     actions: {
       // 获取音乐排行版
-      getMusicList ({ commit }, payload) {
+      getMusicList ({ commit }) {
         return Axios.get('https://api.apiopen.top/musicRankingsDetails', {
           params: {
             type: 1
           }
         }).then(data => {
           commit('setMusicList', data.data.result)
+        })
+      },
+      // 获取视频大纲
+      getVideoHomeTab ({ commit }) {
+        return Axios.get('https://api.apiopen.top/videoHomeTab').then(data => {
+          commit('setVideoHomeTab', data.data.result)
         })
       }
     },
